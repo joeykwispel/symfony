@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DefaultController!{% endblock %}
+
+{% block body %}
+<h1>Toernooi</h1>
+{% set wedstrijdronde = 0 %}
+{% set enter = 'N' %}
+
+{% for wedstrijd in wedstrijds %}
+{% if wedstrijdronde == 0 %}
+{% set wedstrijdronde = wedstrijd.ronde %}
+{# Maakt hem gelijk #}
+{% endif %}
+
+{% if wedstrijd.ronde != wedstrijdronde %}
+{% set enter = 'Y'%}
+{% set wedstrijdronde = wedstrijd.ronde %}
+{% endif %}
+
+{% if enter == 'Y'%}
+<br/>
+{% set enter = 'N' %}
+{% endif %}
+
+        <tbody>
+            <tr>
+                <th>Ronde</th>
+                <td>{{ wedstrijd.ronde }}</td>
+            </tr>
+            <tr>
+                <th>Score1</th>
+                <td>{{ wedstrijd.spelerid1 }}/{{ wedstrijd.score1 }}</td>
+            </tr>
+            <tr>
+                <th>Score2</th>
+                <td>{{ wedstrijd.spelerid2 }}/{{ wedstrijd.score2 }}</td>
+            </tr>
+        </tbody>
+    {% endfor %}
+{% endblock %}
